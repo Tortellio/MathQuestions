@@ -68,7 +68,7 @@ namespace CapScroLL.MathQuestions
         }
         //---------------------------------/Starter-----------------------------//
         //ThisPluginBrain
-        private static readonly System.Random autonumber = new System.Random();
+        private static readonly Random autonumber = new Random();
         public static int number1, number2, autoperation, result;
         public static string operation;
 
@@ -107,11 +107,11 @@ namespace CapScroLL.MathQuestions
                         timer = DateTime.Now;
                         NoQuestion = false;
                     }
-            }
-            catch (Exception old)
-            {
-                Rocket.Core.Logging.Logger.LogException(old);
-            }
+                }
+                catch (Exception old)
+                {
+                    Rocket.Core.Logging.Logger.LogException(old);
+                }
             else { Automation = null; }
         }
 
@@ -120,40 +120,43 @@ namespace CapScroLL.MathQuestions
         [RocketCommandAlias("re")]
         public void ExecuteCommandcevap(IRocketPlayer caller, string[] answer)
         {
-        try {
-            UnturnedPlayer player = (UnturnedPlayer)caller;
-            if (NoQuestion)
+            try
             {
-                string noquestion = Translate("mathquestions_no_question");
-                UnturnedChat.Say(caller, noquestion, UnturnedChat.GetColorFromName(Configuration.Instance.UnfavorableMessageColor, UnityEngine.Color.red));
-            }
-            else {
-                if (answer.Length >= 1)
+                UnturnedPlayer player = (UnturnedPlayer)caller;
+                if (NoQuestion)
                 {
-                    if (answer[0] == result.ToString() && !NoQuestion)
-                    {
-                        NoQuestion = true;
-                        MathQuestions.ExecuteDependencyCode("Uconomy", (IRocketPlugin plugin) =>
-                        {
-                            Uconomy Uconomy = (Uconomy)plugin;
-                            Uconomy.Database.IncreaseBalance(player.CSteamID.ToString(), Configuration.Instance.Reward);
-                            {
-                                string rightanswer = Translate("mathquestions_true_answer", Configuration.Instance.Reward.ToString(), Uconomy.Configuration.Instance.MoneyName, Uconomy.Database.GetBalance(player.CSteamID.ToString()));
-                                UnturnedChat.Say(player, rightanswer, UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, UnityEngine.Color.yellow));
-
-                                string winner = Translate("mathquestions_broadcast_winner", caller.DisplayName, result.ToString(), Configuration.Instance.Reward.ToString(), Uconomy.Configuration.Instance.MoneyName);
-                                UnturnedChat.Say(winner, UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, UnityEngine.Color.yellow));
-                            }
-                        });
-                    }
-                    if (answer[0] != result.ToString() && !NoQuestion) UnturnedChat.Say(caller, Translate("mathquestions_wrong_answer"), UnturnedChat.GetColorFromName(Configuration.Instance.UnfavorableMessageColor, UnityEngine.Color.red));
+                    string noquestion = Translate("mathquestions_no_question");
+                    UnturnedChat.Say(caller, noquestion, UnturnedChat.GetColorFromName(Configuration.Instance.UnfavorableMessageColor, UnityEngine.Color.red));
                 }
-                else UnturnedChat.Say(caller, Translate("mathquestions_invalid_parameter"), UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, UnityEngine.Color.yellow));
+                else
+                {
+                    if (answer.Length >= 1)
+                    {
+                        if (answer[0] == result.ToString() && !NoQuestion)
+                        {
+                            NoQuestion = true;
+                            MathQuestions.ExecuteDependencyCode("Uconomy", (IRocketPlugin plugin) =>
+                            {
+                                Uconomy Uconomy = (Uconomy)plugin;
+                                Uconomy.Database.IncreaseBalance(player.CSteamID.ToString(), Configuration.Instance.Reward);
+                                {
+                                    string rightanswer = Translate("mathquestions_true_answer", Configuration.Instance.Reward.ToString(), Uconomy.Configuration.Instance.MoneyName, Uconomy.Database.GetBalance(player.CSteamID.ToString()));
+                                    UnturnedChat.Say(player, rightanswer, UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, UnityEngine.Color.yellow));
+
+                                    string winner = Translate("mathquestions_broadcast_winner", caller.DisplayName, result.ToString(), Configuration.Instance.Reward.ToString(), Uconomy.Configuration.Instance.MoneyName);
+                                    UnturnedChat.Say(winner, UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, UnityEngine.Color.yellow));
+                                }
+                            });
+                        }
+                        if (answer[0] != result.ToString() && !NoQuestion) UnturnedChat.Say(caller, Translate("mathquestions_wrong_answer"), UnturnedChat.GetColorFromName(Configuration.Instance.UnfavorableMessageColor, UnityEngine.Color.red));
+                    }
+                    else UnturnedChat.Say(caller, Translate("mathquestions_invalid_parameter"), UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, UnityEngine.Color.yellow));
+                }
             }
-         }
-       } catch (Exception err)
-       {
-       Rocket.Core.Logging.Logger.LogWarning ("Error: " + err)
-       }
+            catch (Exception err)
+            {
+                Rocket.Core.Logging.Logger.LogWarning("Error: " + err);
+            }
+        }
     }
- }
+}
