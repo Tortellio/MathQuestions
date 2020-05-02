@@ -102,7 +102,7 @@ namespace CapScroLL.MathQuestions
                         {
                             Uconomy Uconomy = (Uconomy)plugin;
                             string broadcast = Translate("mathquestions_broadcast_question", number1.ToString(), number2.ToString(), operation, Configuration.Instance.Reward.ToString(), Uconomy.Configuration.Instance.MoneyName);
-                            UnturnedChat.Say(broadcast, UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, UnityEngine.Color.yellow));
+                            UnturnedChat.Say(broadcast, UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, UnityEngine.Color.yellow), "https://i.imgur.com/DSwpdqV.png");
                         });
                         timer = DateTime.Now;
                         NoQuestion = false;
@@ -126,7 +126,7 @@ namespace CapScroLL.MathQuestions
                 if (NoQuestion)
                 {
                     string noquestion = Translate("mathquestions_no_question");
-                    UnturnedChat.Say(caller, noquestion, UnturnedChat.GetColorFromName(Configuration.Instance.UnfavorableMessageColor, UnityEngine.Color.red));
+                    UnturnedChat.Say(caller, noquestion, UnturnedChat.GetColorFromName(Configuration.Instance.UnfavorableMessageColor, UnityEngine.Color.red), "https://i.imgur.com/FeIvao9.png");
                 }
                 else
                 {
@@ -141,16 +141,16 @@ namespace CapScroLL.MathQuestions
                                 Uconomy.Database.IncreaseBalance(player.CSteamID.ToString(), Configuration.Instance.Reward);
                                 {
                                     string rightanswer = Translate("mathquestions_true_answer", Configuration.Instance.Reward.ToString(), Uconomy.Configuration.Instance.MoneyName, Uconomy.Database.GetBalance(player.CSteamID.ToString()));
-                                    UnturnedChat.Say(player, rightanswer, UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, UnityEngine.Color.yellow));
+                                    UnturnedChat.Say(player, rightanswer, UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, UnityEngine.Color.yellow), "https://i.imgur.com/DSwpdqV.png");
 
                                     string winner = Translate("mathquestions_broadcast_winner", caller.DisplayName, result.ToString(), Configuration.Instance.Reward.ToString(), Uconomy.Configuration.Instance.MoneyName);
-                                    UnturnedChat.Say(winner, UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, UnityEngine.Color.yellow));
+                                    UnturnedChat.Say(winner, UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, UnityEngine.Color.yellow), "https://i.imgur.com/DSwpdqV.png");
                                 }
                             });
                         }
                         if (answer[0] != result.ToString() && !NoQuestion) UnturnedChat.Say(caller, Translate("mathquestions_wrong_answer"), UnturnedChat.GetColorFromName(Configuration.Instance.UnfavorableMessageColor, UnityEngine.Color.red));
                     }
-                    else UnturnedChat.Say(caller, Translate("mathquestions_invalid_parameter"), UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, UnityEngine.Color.yellow));
+                    else UnturnedChat.Say(caller, Translate("mathquestions_invalid_parameter"), UnturnedChat.GetColorFromName(Configuration.Instance.MessageColor, UnityEngine.Color.yellow), "https://i.imgur.com/FeIvao9.png");
                 }
             }
             catch (Exception err)
